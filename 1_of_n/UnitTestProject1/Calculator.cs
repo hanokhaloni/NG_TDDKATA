@@ -4,31 +4,17 @@ namespace UnitTestProject1
 {
     internal class Calculator
     {
-        private const string CUSTOM_PREFIX = "//";
-        private static string CUSTOM_AFTER_PREFIX = "\n";
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="commaSeperatedNumbers"></param>
+        /// <param name="numbersSeperatedByDelimiter"></param>
         /// <returns></returns>
-        internal static int Add(string commaSeperatedNumbers)
+        internal static int Add(string numbersSeperatedByDelimiter)
         {
-            var defaultDelimiter = ',';
-            //TODO extract "returnZeroForEmptyString
-            if (String.IsNullOrEmpty(commaSeperatedNumbers))
-            {
-                return 0;
-            }
+            ValuesExtractor valuesExtractor = new RegExValueExtractor();
+            //ValuesExtractor valuesExtractor = new StringConcatValueExtractor();
 
-            if (commaSeperatedNumbers.StartsWith(CUSTOM_PREFIX))
-            {
-                defaultDelimiter = commaSeperatedNumbers.Substring(CUSTOM_PREFIX.Length, CUSTOM_PREFIX.Length + 1).ToCharArray()[0];
-                commaSeperatedNumbers = commaSeperatedNumbers.Substring(
-                    CUSTOM_PREFIX.Length + CUSTOM_AFTER_PREFIX.Length + 1, 
-                    commaSeperatedNumbers.Length - CUSTOM_PREFIX.Length - CUSTOM_AFTER_PREFIX.Length - 1);
-            }
-
-            var values = commaSeperatedNumbers.Split(defaultDelimiter, '\n');
+            var values = valuesExtractor.Extract(numbersSeperatedByDelimiter);
 
             return SumValues(values);
         }
@@ -44,4 +30,6 @@ namespace UnitTestProject1
             return sum;
         }
     }
+
+    
 }

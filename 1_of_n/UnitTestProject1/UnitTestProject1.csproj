@@ -51,8 +51,10 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Calculator.cs" />
+    <Compile Include="RegExValueExtractor.cs" />
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ValuesExtractor.cs" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
