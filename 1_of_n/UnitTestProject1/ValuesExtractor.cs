@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace UnitTestProject1
 {
-    public class ValuesExtractor
+    public interface Ix
+    {
+         void resolveNumbersSeperatedByDelimiter(string input);
+
+    }
+    public abstract class ValuesExtractor : Ix
     {
         protected const char DEFAULT_DELIMITER = ',';
 
@@ -23,12 +28,7 @@ namespace UnitTestProject1
             Values = null;
         }
 
-        public ValuesExtractor(string input)
-        {
-            Values = Extract(input);
-        }
-
-        public virtual IList<String> Extract(string input)
+        public IList<String> Extract(string input)
         {
             if (String.IsNullOrEmpty(input))
             {
@@ -46,9 +46,7 @@ namespace UnitTestProject1
             Values = numbersSeperatedByDelimiter.Split(delimiter, '\n').ToList();
         }
 
-        public virtual void resolveNumbersSeperatedByDelimiter(string input) { }
-
-
+        public abstract void resolveNumbersSeperatedByDelimiter(string input);
     }
 
     public class StringConcatValueExtractor : ValuesExtractor
