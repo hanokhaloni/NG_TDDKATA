@@ -16,7 +16,7 @@ namespace UnitTestProject1
         protected char delimiter = DEFAULT_DELIMITER;
         protected string numbersSeperatedByDelimiter = "";
 
-        public string[] Values { get; private set; }
+        public IList<String> Values { get; private set; }
 
         public ValuesExtractor()
         {
@@ -28,7 +28,7 @@ namespace UnitTestProject1
             Values = Extract(input);
         }
 
-        public virtual string[] Extract(string input)
+        public virtual IList<String> Extract(string input)
         {
             if (String.IsNullOrEmpty(input))
             {
@@ -43,7 +43,7 @@ namespace UnitTestProject1
 
         private void SplitByDelimiterAndNewline()
         {
-            Values = numbersSeperatedByDelimiter.Split(delimiter, '\n');
+            Values = numbersSeperatedByDelimiter.Split(delimiter, '\n').ToList();
         }
 
         public virtual void resolveNumbersSeperatedByDelimiter(string input) { }

@@ -10,30 +10,23 @@ namespace UnitTestProject1
         /// The only max value in the world EV-AR~!
         /// </summary>
         private const int MAX_VALUE = 1000;
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="numbersSeperatedByDelimiter"></param>
-        /// <returns></returns>
+        
         internal static int Add(string numbersSeperatedByDelimiter)
         {
             //ValuesExtractor valuesExtractor = new RegExValueExtractor();
             ValuesExtractor valuesExtractor = new StringConcatValueExtractor();
 
             var values = valuesExtractor.Extract(numbersSeperatedByDelimiter);
-
             var parsedValues = ParseToInts(values);
-
             var filteredIntValues = FilterGreaterThanMaxValue(parsedValues);
-
             ValidateIntsArePositive(filteredIntValues);
 
             return SumValues(filteredIntValues);
         }
 
-        private static int[] FilterGreaterThanMaxValue(int[] parsedValues)
+        private static IList<int> FilterGreaterThanMaxValue(IList<int> parsedValues)
         {
-            List<int> result = new List<int>();
+            var result = new List<int>();
             foreach (var value in parsedValues)
             {
                 if (value <= MAX_VALUE)
@@ -41,12 +34,12 @@ namespace UnitTestProject1
                     result.Add(value);
                 }
             }
-            return result.ToArray();
+            return result;
         }
 
-        private static void ValidateIntsArePositive(int[] values)
+        private static void ValidateIntsArePositive(IList<int> values)
         {
-            List<int> negatives = new List<int>();
+            var negatives = new List<int>();
             foreach (int value in values)
             {
                 if (value < 0)
@@ -62,14 +55,14 @@ namespace UnitTestProject1
             }
         }
 
-        private static bool IsEmpty(List<int> negatives)
+        private static bool IsEmpty(IList<int> negatives)
         {
             return negatives.Count == 0;
         }
 
-        private static int[] ParseToInts(string[] stringValues)
+        private static IList<int> ParseToInts(IList<string> stringValues)
         {
-            List<int> result = new List<int>();
+            var result = new List<int>();
 
             foreach (string val in stringValues)
             {
@@ -77,10 +70,10 @@ namespace UnitTestProject1
                 result.Add(parsedInt);
             }
 
-            return result.ToArray();
+            return result;
         }
 
-        private static int SumValues(int[] values)
+        private static int SumValues(IList<int> values)
         {
             int sum = 0;
             foreach (int val in values)

@@ -79,36 +79,33 @@ namespace UnitTestProject1
         [TestMethod]
         public void Add_WithNegativeValues_ShouldReturnAppropriateMessage()
         {
-            try
-            {
-                var result = Calculator.Add("1,-3,5");
-            }catch(ArgumentOutOfRangeException exception)
-            {
-                string ExpectedMessage = "negatives not allowed -3";
-                Assert.AreEqual(ExpectedMessage, exception.Message);
-                return;
-            }
-
-            Assert.Fail("Add_WithNegativeValues_ShouldReturnAppropriateMessage - did not throw an arguement out of range exception");
-            
+            var input = "1,-3,5";
+            var ExpectedMessage = "negatives not allowed -3";
+            TestInputAndVerifyExceptionMessage(input, ExpectedMessage);
         }
 
         [TestMethod]
         public void Add_WithMultipleNegativeValues_ShouldReturnAppropriateMessage()
         {
+            var input = "1,-3,-5";
+            var ExpectedMessage = "negatives not allowed -3,-5";
+            TestInputAndVerifyExceptionMessage(input, ExpectedMessage);
+        }
+
+        private static void TestInputAndVerifyExceptionMessage(string input, string ExpectedMessage)
+        {
             try
             {
-                var result = Calculator.Add("1,-3,-5");
+                var result = Calculator.Add(input);
             }
             catch (ArgumentOutOfRangeException exception)
             {
-                string ExpectedMessage = "negatives not allowed -3,-5";
+
                 Assert.AreEqual(ExpectedMessage, exception.Message);
                 return;
             }
 
             Assert.Fail("Add_WithNegativeValues_ShouldReturnAppropriateMessage - did not throw an arguement out of range exception");
-
         }
 
         [TestMethod]
