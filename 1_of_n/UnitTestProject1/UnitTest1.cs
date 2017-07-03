@@ -6,7 +6,7 @@ namespace UnitTestProject1
     [TestClass]
     public class CalculatorTest
     {
-        Calculator calculator = new Calculator();
+        IStringCalculator calculator = new StringCalculator();
         [TestMethod]
         public void Add_EmptyString_ReturnZero()
         {

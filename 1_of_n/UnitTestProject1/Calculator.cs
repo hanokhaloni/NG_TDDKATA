@@ -4,7 +4,7 @@ using System.Text;
 
 namespace UnitTestProject1
 {
-    internal class Calculator
+    class StringCalculator : IStringCalculator
     {
         /// <summary>
         /// The only max value in the world EV-AR~!
@@ -12,13 +12,11 @@ namespace UnitTestProject1
         private const int MAX_VALUE = 1000;
         ValuesExtractor valuesExtractor = new StringConcatValueExtractor();
 
-        internal int Add(string numbersSeperatedByDelimiter)
+        public int Add(string numbersSeperatedByDelimiter)
         {
-            //ValuesExtractor valuesExtractor = new RegExValueExtractor();
-
-            var values = valuesExtractor.Extract(numbersSeperatedByDelimiter);
-            var parsedValues = ParseToInts(values);
-            var filteredIntValues = FilterGreaterThanMaxValue(parsedValues);
+            var stringValues = valuesExtractor.Extract(numbersSeperatedByDelimiter);
+            var intValues = ParseToInts(stringValues);
+            var filteredIntValues = FilterGreaterThanMaxValue(intValues);
             ValidateIntsArePositive(filteredIntValues);
 
             return SumValues(filteredIntValues);
