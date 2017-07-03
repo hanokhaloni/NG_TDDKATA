@@ -10,11 +10,11 @@ namespace UnitTestProject1
         /// The only max value in the world EV-AR~!
         /// </summary>
         private const int MAX_VALUE = 1000;
-        
-        internal static int Add(string numbersSeperatedByDelimiter)
+        ValuesExtractor valuesExtractor = new StringConcatValueExtractor();
+
+        internal int Add(string numbersSeperatedByDelimiter)
         {
             //ValuesExtractor valuesExtractor = new RegExValueExtractor();
-            ValuesExtractor valuesExtractor = new StringConcatValueExtractor();
 
             var values = valuesExtractor.Extract(numbersSeperatedByDelimiter);
             var parsedValues = ParseToInts(values);

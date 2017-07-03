@@ -6,10 +6,11 @@ namespace UnitTestProject1
     [TestClass]
     public class CalculatorTest
     {
+        Calculator calculator = new Calculator();
         [TestMethod]
         public void Add_EmptyString_ReturnZero()
         {
-            var result = Calculator.Add("");
+            var result = calculator.Add("");
 
             Assert.AreEqual(0, result);
         }
@@ -17,7 +18,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void Add_One_ReturnOne()
         {
-            var result = Calculator.Add("1");
+            var result = calculator.Add("1");
 
             Assert.AreEqual(1, result);
         }
@@ -25,7 +26,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void Add_OneAndTwo_ReturnThree()
         {
-            var result = Calculator.Add("1,2");
+            var result = calculator.Add("1,2");
 
             Assert.AreEqual(3, result);
         }
@@ -33,7 +34,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void Add_UnknownAmountOfNumbers_ReturnSum1()
         {
-            var result = Calculator.Add("1,2,3");
+            var result = calculator.Add("1,2,3");
 
             Assert.AreEqual(6, result);
         }
@@ -41,7 +42,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void Add_UnknownAmountOfNumbers_ReturnSum2()
         {
-            var result = Calculator.Add("1,6,1,1");
+            var result = calculator.Add("1,6,1,1");
 
             Assert.AreEqual(9, result);
         }
@@ -49,7 +50,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void Add_NewlineSeperatorAndAComma_ReturnSum()
         {
-            var result = Calculator.Add("1\n2,3");
+            var result = calculator.Add("1\n2,3");
 
             Assert.AreEqual(6, result);
         }
@@ -58,13 +59,13 @@ namespace UnitTestProject1
         [ExpectedException(typeof(FormatException))]
         public void Add_OneCommaNewLine_ShouldBeInvalid()
         {
-            var result = Calculator.Add("1,\n");
+            var result = calculator.Add("1,\n");
         }
 
         [TestMethod]
         public void Add_TwoNumbersWithCustomDelimiter_ShouldReturnSum3()
         {
-            var result = Calculator.Add("//;\n1;2");
+            var result = calculator.Add("//;\n1;2");
 
             Assert.AreEqual(3, result);
         }
@@ -73,7 +74,7 @@ namespace UnitTestProject1
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void Add_WithNegativeValues_ShouldBeInvalid()
         {
-            var result = Calculator.Add("1,-3,5");
+            var result = calculator.Add("1,-3,5");
         }
 
         [TestMethod]
@@ -92,11 +93,11 @@ namespace UnitTestProject1
             TestInputAndVerifyExceptionMessage(input, ExpectedMessage);
         }
 
-        private static void TestInputAndVerifyExceptionMessage(string input, string ExpectedMessage)
+        private void TestInputAndVerifyExceptionMessage(string input, string ExpectedMessage)
         {
             try
             {
-                var result = Calculator.Add(input);
+                var result = calculator.Add(input);
             }
             catch (ArgumentOutOfRangeException exception)
             {
@@ -111,7 +112,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void Add_NumberBiggerThanOneThousandShouldBeIgnored_ShouldSumToTwo()
         {
-            var result = Calculator.Add("2,1001");
+            var result = calculator.Add("2,1001");
             Assert.AreEqual(2, result);
         }
     }
