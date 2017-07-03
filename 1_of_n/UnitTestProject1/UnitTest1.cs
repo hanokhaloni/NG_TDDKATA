@@ -68,5 +68,54 @@ namespace UnitTestProject1
 
             Assert.AreEqual(3, result);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
+        public void Add_WithNegativeValues_ShouldBeInvalid()
+        {
+            var result = Calculator.Add("1,-3,5");
+        }
+
+        [TestMethod]
+        public void Add_WithNegativeValues_ShouldReturnAppropriateMessage()
+        {
+            try
+            {
+                var result = Calculator.Add("1,-3,5");
+            }catch(ArgumentOutOfRangeException exception)
+            {
+                string ExpectedMessage = "negatives not allowed -3";
+                Assert.AreEqual(ExpectedMessage, exception.Message);
+                return;
+            }
+
+            Assert.Fail("Add_WithNegativeValues_ShouldReturnAppropriateMessage - did not throw an arguement out of range exception");
+            
+        }
+
+        [TestMethod]
+        public void Add_WithMultipleNegativeValues_ShouldReturnAppropriateMessage()
+        {
+            try
+            {
+                var result = Calculator.Add("1,-3,-5");
+            }
+            catch (ArgumentOutOfRangeException exception)
+            {
+                string ExpectedMessage = "negatives not allowed -3,-5";
+                Assert.AreEqual(ExpectedMessage, exception.Message);
+                return;
+            }
+
+            Assert.Fail("Add_WithNegativeValues_ShouldReturnAppropriateMessage - did not throw an arguement out of range exception");
+
+        }
+
+        [TestMethod]
+        public void Add_NumberBiggerThanOneThousandShouldBeIgnored_ShouldSumToTwo()
+        {
+            var result = Calculator.Add("2,1001");
+            Assert.AreEqual(2, result);
+        }
     }
 }
