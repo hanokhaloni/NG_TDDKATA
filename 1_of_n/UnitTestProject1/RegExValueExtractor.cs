@@ -25,7 +25,7 @@ namespace UnitTestProject1
             if (match.Success)
             {
                 numbersSeperatedByDelimiter = match.Groups[NUMBERS_REGEX_GROUP].ToString();
-                delimiter = match.Groups[DELIMITER_REGEX_GROUP].ToString().ToCharArray()[0];
+                delimiter = match.Groups[DELIMITER_REGEX_GROUP].ToString();
             }
         }
     }

@@ -115,5 +115,14 @@ namespace UnitTestProject1
             var result = calculator.Add("2,1001");
             Assert.AreEqual(2, result);
         }
+
+        [TestMethod]
+        public void Add_ThreeLetterDelimiter_ShouldREturnCorrectSum()
+        {
+            var result = calculator.Add("//[***]\n1***2***3");
+            Assert.AreEqual(6, result);
+        }
+
+         
     }
 }

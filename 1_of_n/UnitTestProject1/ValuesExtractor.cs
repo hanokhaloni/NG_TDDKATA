@@ -13,12 +13,12 @@ namespace UnitTestProject1
     }
     public abstract class ValuesExtractor : Ix
     {
-        protected const char DEFAULT_DELIMITER = ',';
+        protected const string DEFAULT_DELIMITER = ",";
 
         protected const string CUSTOM_DELIMITER_PREFIX = "//";
         protected const string CUSTOM_DELIMITER_POSTFIX = "\n";
 
-        protected char delimiter = DEFAULT_DELIMITER;
+        protected string delimiter = DEFAULT_DELIMITER;
         protected string numbersSeperatedByDelimiter = "";
 
         public IList<String> Values { get; private set; }
@@ -43,7 +43,8 @@ namespace UnitTestProject1
 
         private void SplitByDelimiterAndNewline()
         {
-            Values = numbersSeperatedByDelimiter.Split(delimiter, '\n').ToList();
+            var seperators = new string[] { delimiter, CUSTOM_DELIMITER_POSTFIX };
+            Values = numbersSeperatedByDelimiter.Split(seperators, StringSplitOptions.None).ToList();
         }
 
         public abstract void resolveNumbersSeperatedByDelimiter(string input);
@@ -54,19 +55,37 @@ namespace UnitTestProject1
         public override void resolveNumbersSeperatedByDelimiter(string input)
         {
             int numbersStartPosision = 0;
+            int numbersLength = 0;
 
             if (input.StartsWith(CUSTOM_DELIMITER_PREFIX))
             {
-                delimiter = input.Substring(CUSTOM_DELIMITER_PREFIX.Length, CUSTOM_DELIMITER_PREFIX.Length + 1).ToCharArray()[0];
-                numbersStartPosision += CUSTOM_DELIMITER_PREFIX.Length + CUSTOM_DELIMITER_POSTFIX.Length + 1;//+1 for delimiter size
+                numbersStartPosision = input.IndexOf(CUSTOM_DELIMITER_POSTFIX) + CUSTOM_DELIMITER_POSTFIX.Length;
+
+                int delimiterStartProsition;
+                int delimiterEndPosition;
+                int delimiterSize;
+                if (input.Contains('['))
+                {
+                    delimiterStartProsition = input.IndexOf('[')+1;
+                    delimiterEndPosition = input.IndexOf(']');
+                    delimiterSize = delimiterEndPosition - delimiterStartProsition;
+                    delimiter = input.Substring(delimiterStartProsition, delimiterSize);
+
+                }
+                else
+                {
+                    delimiterStartProsition = input.IndexOf(CUSTOM_DELIMITER_PREFIX) + CUSTOM_DELIMITER_PREFIX.Length;
+                    delimiterEndPosition = input.IndexOf(CUSTOM_DELIMITER_POSTFIX);
+                    delimiterSize = delimiterEndPosition - delimiterStartProsition;
+                    delimiter = input.Substring(delimiterStartProsition, delimiterSize);
+                }
             }
 
-
-            int numbersEndPosition = input.Length - numbersStartPosision;
+            numbersLength = input.Length - numbersStartPosision;
 
             numbersSeperatedByDelimiter = input.Substring(
                     numbersStartPosision,
-                    numbersEndPosition);
+                    numbersLength);
         }
     }
 
