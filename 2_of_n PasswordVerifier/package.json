@@ -1,0 +1,14 @@
+{
+  "name": PasswordVerifierKata",
+  "version": "1.0.0",
+  "description": "Javascript template base for PasswordVerifier TDD kata",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "Hanokh.Aloni",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^27.2.0"
+  }
+}
