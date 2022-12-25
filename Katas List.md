@@ -534,3 +534,6 @@ References
 * More: http://codekata.pragprog.com/2007/01/code_kata_backg.html#more
 * Word Wrap Kata: http://codingdojo.org/cgi-bin/wiki.pl?KataWordWrap
 * String Calculator: http://osherove.com/tdd-kata-1/
+* Coding kata catalog - https://github.com/ardalis/kata-catalog
+* Curated list - https://hackmd.io/@pierodibello/A-curated-list-of-programming-kata
+* 
